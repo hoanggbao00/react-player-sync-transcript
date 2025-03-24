@@ -12,12 +12,14 @@ interface PlaySeekProps {
 export const PlaySeekControl = memo(({ isPlaying, onPlayPause, onSeekBackward, onSeekForward }: PlaySeekProps) => {
   return (
     <>
-      <button onClick={onSeekBackward}>
-        <RewindIcon size={16} />
+      <button onClick={onSeekBackward} className="hover:text-white/60" title='Rewind 5s'>
+        <RewindIcon size={24} />
       </button>
-      <button onClick={onPlayPause}>{isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}</button>
-      <button onClick={onSeekForward}>
-        <RewindIcon size={16} className="rotate-180" />
+      <button onClick={onPlayPause} className="hover:text-white/60" title={isPlaying ? 'Pause' : 'Play'}>
+        {isPlaying ? <PauseIcon size={48} /> : <PlayIcon size={48} />}
+      </button>
+      <button onClick={onSeekForward} title='Forward 5s'>
+        <RewindIcon size={24} className="rotate-180 hover:text-white/60" />
       </button>
     </>
   );

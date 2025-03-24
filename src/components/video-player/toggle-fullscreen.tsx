@@ -7,8 +7,8 @@ interface ToggleFullscreenProps {
 
 export const ToggleFullscreen = memo(({ onToggleFullscreen }: ToggleFullscreenProps) => {
   return (
-    <button onClick={onToggleFullscreen}>
-      <Maximize2 size={16} />
+    <button onClick={onToggleFullscreen} title="Toggle fullscreen" className="hover:text-white/80 transition-colors cursor-pointer">
+      <Maximize2 size={20} />
     </button>
-  )
-})
+  );
+});

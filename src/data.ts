@@ -1,4 +1,5 @@
 export const defaultUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+// export const defaultUrl = 'https://www.dailymotion.com/video/x84sh87'
 
 export const mockTranscriptData = {
   language: "ENGLISH",

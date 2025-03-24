@@ -13,21 +13,21 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup Nodejs
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
+          bun-version: latest
 
       # Install Dependencies
-      - name: Install Dependencies
-        run: npm install
+	  - name: Install dependencies
+        run: bun install
 
       # Build the project
       - name: Build project
-        run: npm run build
+        run: bun run build
 
       # Deploy to github pages
       - name: Deploy to github pages

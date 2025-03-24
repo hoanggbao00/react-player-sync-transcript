@@ -11,11 +11,11 @@ export default function App() {
   const [url, setUrl] = useState(defaultUrl);
   const playerRef = useRef<ReactPlayer>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const handleTimeChange = useCallback(
     (currentTime: number) => {
       if (!transcriptData?.segments) return;
-      console.log("change");
 
       // Find the nearest timestamp entry
       let nearestIndex = 0;
@@ -61,20 +61,45 @@ export default function App() {
     }
   }, []);
 
+  const onLoadVideo = useCallback(() => {
+    if (inputFileRef.current && inputFileRef.current.files) {
+      let _url = "";
+      const file = inputFileRef.current.files[0];
+      if (file) {
+        _url = URL.createObjectURL(file);
+      }
+
+      if (_url) {
+        setUrl(_url);
+        inputFileRef.current.value = "";
+      }
+    }
+  }, []);
+
   return (
     <div className="h-screen w-screen flex items-center justify-center gap-4">
       <div>
         <VideoPlayer onProgress={handleTimeChange} ref={playerRef} url={url} />
         <div className="flex gap-2 items-center mt-2">
           <label htmlFor="input">Enter URL:</label>{" "}
-          <input
-            defaultValue="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            ref={inputRef}
-            type="url"
-            className="px-2 py-1 border rounded"
-          />
-          <button onClick={onLoad} className="border bg-neutral-200 px-2 py-1 rounded">Load</button>
+          <input defaultValue={defaultUrl} ref={inputRef} type="url" className="px-2 py-1 border rounded" />
+          <button onClick={onLoad} className="border bg-neutral-200 px-2 py-1 rounded">
+            Load
+          </button>
         </div>
+        <div className="flex gap-2 items-center mt-2">
+          <label htmlFor="input">Upload File</label>{" "}
+          <input ref={inputFileRef} type="file" accept="video/mp4" className="px-2 py-1 border rounded" />
+          <button onClick={onLoadVideo} className="border bg-neutral-200 px-2 py-1 rounded">
+            Load
+          </button>
+        </div>
+        <p className="mt-2">
+          More demo at:{" "}
+          <a href="https://cookpete.com/react-player" target="_blank" className="underline">
+            https://cookpete.com/react-player/
+          </a>
+        </p>
       </div>
       <div className="h-screen py-26">
         <p className="text-center mb-2">Transcript for default video only</p>
